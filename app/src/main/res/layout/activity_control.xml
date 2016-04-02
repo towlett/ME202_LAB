@@ -10,6 +10,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.stanford.tmowlett.smartbike.ControlActivity">
 
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/unlock_button"
+        android:src="@drawable/unlock"
+        android:padding="10dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart" />
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -52,13 +61,6 @@
         android:layout_height="wrap_content"
         android:text="@string/button_ride_history"
         android:id="@+id/ride_history_button"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_unlock"
-        android:id="@+id/unlock_button"
         android:layout_gravity="center_horizontal" />
 
 
