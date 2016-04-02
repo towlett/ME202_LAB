@@ -17,6 +17,7 @@
         android:src="@drawable/unlock"
         android:padding="10dp"
         android:adjustViewBounds="true"
+        android:onClick="unlockBike"
         android:scaleType="fitStart" />
 
     <LinearLayout

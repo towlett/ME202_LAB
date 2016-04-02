@@ -28,6 +28,5 @@
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_login"
-        android:onClick="attemptLogin" />
+        android:text="@string/button_login" />
 </LinearLayout>
