@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (userNameIn.equals(HARDCODE_USERNAME) && passwordIn.equals(HARDCODE_PASSWORD)) {
                     //move to control activity
-                    //Toast.makeText(LoginActivity.this, "Authentication Passed", Toast.LENGTH_SHORT).show();
                     Intent goToControl = new Intent(LoginActivity.this, ControlActivity.class);
                     startActivity(goToControl);
                 } else {
