@@ -10,11 +10,12 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
+    // Class Variables
     Button loginButton;
     EditText userNameEditText;
     EditText passwordEditText;
-    private final static String HARDCODE_USERNAME = "PasswordIsTaco";
-    private final static String HARDCODE_PASSWORD = "Taco";
+    private final String hardcodeUsername = "PasswordIsTaco";
+    private final String hardcodePassword = "Taco";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +29,20 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-
             // Function for Login Button Click
             public void onClick(View view) {
                 // Get username and password strings
-
                 String userNameIn = userNameEditText.getText().toString();
                 String passwordIn = passwordEditText.getText().toString();
 
                 // Compare inputted username and password to actual
-                if (userNameIn.equals(HARDCODE_USERNAME) && passwordIn.equals(HARDCODE_PASSWORD)) {
+                if (userNameIn.equals(hardcodeUsername) && passwordIn.equals(hardcodePassword)) {
                     // Move to control activity
                     Intent goToControl = new Intent(LoginActivity.this, ControlActivity.class);
                     startActivity(goToControl);
                 } else {
                     // Authentication failed
-                    Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
                 }
             }
         });
