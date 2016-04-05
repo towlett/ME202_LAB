@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
+    Button loginButton;
+    EditText userNameEditText;
+    EditText passwordEditText;
     private final static String HARDCODE_USERNAME = "PasswordIsTaco";
     private final static String HARDCODE_PASSWORD = "Taco";
 
@@ -18,19 +21,28 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button loginButton = (Button)findViewById(R.id.login_button);
+        //Create login button Object
+        loginButton = (Button)findViewById(R.id.login_button);
+        userNameEditText = (EditText)findViewById(R.id.username);
+        passwordEditText = (EditText)findViewById(R.id.password);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String userNameIn = ((EditText)findViewById(R.id.username)).getText().toString();
-                String passwordIn = ((EditText)findViewById(R.id.password)).getText().toString();
 
+            // Function for Login Button Click
+            public void onClick(View view) {
+                // Get username and password strings
+
+                String userNameIn = userNameEditText.getText().toString();
+                String passwordIn = passwordEditText.getText().toString();
+
+                // Compare inputted username and password to actual
                 if (userNameIn.equals(HARDCODE_USERNAME) && passwordIn.equals(HARDCODE_PASSWORD)) {
-                    //move to control activity
+                    // Move to control activity
                     Intent goToControl = new Intent(LoginActivity.this, ControlActivity.class);
                     startActivity(goToControl);
                 } else {
+                    // Authentication failed
                     Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                 }
             }
