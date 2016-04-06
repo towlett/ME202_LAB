@@ -14,8 +14,8 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     EditText userNameEditText;
     EditText passwordEditText;
-    private final String hardcodeUsername = "PasswordIsTaco";
-    private final String hardcodePassword = "Taco";
+    private String hardcodeUsername;
+    private String hardcodePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
         loginButton = (Button)findViewById(R.id.login_button);
         userNameEditText = (EditText)findViewById(R.id.username);
         passwordEditText = (EditText)findViewById(R.id.password);
+        hardcodeUsername = getString(R.string.hardcode_username);
+        hardcodePassword = getString(R.string.hardcode_password);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,70 +8,134 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorPrimary"
     tools:context="edu.stanford.tmowlett.smartbike.ControlActivity">
 
+    <!-- Lock Button -->
     <ImageButton
+        android:id="@+id/unlock_button"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/unlock_button"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/unlock"
         android:padding="10dp"
         android:adjustViewBounds="true"
         android:scaleType="fitStart" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:background="@color/colorPrimaryLight"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/connection_state"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:id="@+id/connection_state" />
+        <!-- Text views with statuses -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/controls_horizontal_margin"
+            android:layout_marginRight="@dimen/controls_horizontal_margin"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/bike_id"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:id="@+id/bike_id"
-            android:layout_gravity="right" />
+            <!-- Text with connection status -->
+            <TextView
+                android:id="@+id/connection_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/connection_state"
+                android:gravity="center"
+                android:layout_weight="1"
+                 />
+
+            <!-- Text views with bike id -->
+            <TextView
+                android:id="@+id/bike_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bike_id"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_gravity="right" />
+        </LinearLayout>
+
+        <!-- LightMode Line -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/controls_horizontal_margin"
+            android:layout_marginRight="@dimen/controls_horizontal_margin"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/light_mode_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Light Mode"
+                android:layout_weight="1" />
+
+            <!-- Lightmode Toggle Button -->
+            <ToggleButton
+                android:id="@+id/light_state_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:layout_weight=".25"
+                android:text="@string/light_state"
+                android:textOff="Solid"
+                android:background="@drawable/custom_button"
+                android:textOn="Blinking" />
+
+        </LinearLayout>
+
+        <!-- LightState Line -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/controls_horizontal_margin"
+            android:layout_marginRight="@dimen/controls_horizontal_margin"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Light State"
+                android:layout_weight="1" />
+
+            <!-- LightState toggle -->
+            <ToggleButton
+                android:id="@+id/light_mode_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height"
+                android:text="@string/light_mode"
+                android:layout_weight=".25"
+                android:background="@drawable/custom_button"
+                android:textOff="Auto"
+                android:textOn="On" />
+
+        </LinearLayout>
+
+        <!-- Ride History Button -->
+        <Button
+            android:id="@+id/ride_history_button"
+            android:layout_marginLeft="@dimen/controls_horizontal_margin"
+            android:layout_marginRight="@dimen/controls_horizontal_margin"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/button_ride_history"
+            android:background="@drawable/custom_button"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/light_mode"
-            android:layout_weight="1"
-            android:id="@+id/light_mode_switch"
-            android:textOff="Auto"
-            android:textOn="On" />
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/light_state"
-            android:id="@+id/light_state_switch"
-            android:textOff="Solid"
-            android:textOn="Blinking" />
-
-    </LinearLayout>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/button_ride_history"
-        android:id="@+id/ride_history_button"
-        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

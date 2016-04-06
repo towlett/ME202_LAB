@@ -15,4 +15,5 @@
     <string name="authentication_failed">Authentication Failed</string>
     <string name="hardcode_username">PasswordIsTaco</string>
     <string name="hardcode_password">Taco</string>
+    <string name="blank_message">Please Enter Valid MAC Address</string>
 </resources>

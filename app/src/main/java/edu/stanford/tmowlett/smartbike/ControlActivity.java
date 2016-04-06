@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class ControlActivity extends AppCompatActivity {
@@ -29,17 +30,31 @@ public class ControlActivity extends AppCompatActivity {
         });
     }
 
+    //Function to build the unlock dialog box
     private void createUnlockDialog() {
         AlertDialog.Builder unlockBuilder = new AlertDialog.Builder(ControlActivity.this);
-        unlockBuilder.setMessage(R.string.unlock_dialog_message);
+        unlockBuilder.setTitle(R.string.unlock_dialog_message);
+
+        // Use a linear layout to put margins on the edittext box
+        LinearLayout dialogLayout = new LinearLayout(this);
+        dialogLayout.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(40, 0, 40, 0);
+
         final EditText input = new EditText(this);
-        unlockBuilder.setView(input);
+        dialogLayout.addView(input, params);
+        unlockBuilder.setView(dialogLayout);
 
         unlockBuilder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Do Unlock Here
-                Toast.makeText(ControlActivity.this, input.getText(), Toast.LENGTH_SHORT).show();
+                //Check if there is text in the box
+                if (!(input.getText().toString().equals(""))) {
+                    //Do Unlock Here
+                    Toast.makeText(ControlActivity.this, input.getText(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ControlActivity.this, R.string.blank_message, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
