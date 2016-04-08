@@ -2,9 +2,11 @@ package edu.stanford.tmowlett.smartbike;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 public class ControlActivity extends AppCompatActivity {
     ImageButton unlockButton;
+    Button historyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +23,22 @@ public class ControlActivity extends AppCompatActivity {
 
         //Create unlock button object
         unlockButton = (ImageButton)findViewById(R.id.unlock_button);
+        historyButton = (Button)findViewById(R.id.ride_history_button);
 
-        // Set up on click listener
+        // Set up on click listener for unlock button
         unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createUnlockDialog();
+            }
+        });
+
+        // Set up on click listener for ride history button
+        historyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToHistory = new Intent(ControlActivity.this, RideHistoryActivity.class);
+                startActivity(goToHistory);
             }
         });
     }

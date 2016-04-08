@@ -17,6 +17,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="60sp"
         android:text="@string/app_name"
+        android:gravity="center_horizontal"
         android:layout_gravity="center_horizontal" />
 
     <EditText
@@ -24,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:inputType="textVisiblePassword"
         android:hint="@string/username_hint"/>
 
     <EditText

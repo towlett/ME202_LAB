@@ -16,4 +16,6 @@
     <string name="hardcode_username">PasswordIsTaco</string>
     <string name="hardcode_password">Taco</string>
     <string name="blank_message">Please Enter Valid MAC Address</string>
+    <string name="add_ride">Add Ride</string>
+    <string name="location_prompt">Enter Location</string>
 </resources>

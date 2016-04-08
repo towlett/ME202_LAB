@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                     // Move to control activity
                     Intent goToControl = new Intent(LoginActivity.this, ControlActivity.class);
                     startActivity(goToControl);
+                    finish();
                 } else {
                     // Authentication failed
                     Toast.makeText(LoginActivity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
