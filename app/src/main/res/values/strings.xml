@@ -19,4 +19,11 @@
     <string name="add_ride">Add Ride</string>
     <string name="location_prompt">Enter Location</string>
     <string name="ride_added_message">Ride Added</string>
+    <string name="add_ride_message">Enter Ride Location</string>
+    <string name="button_register">Register Here</string>
+    <string name="new_user_text">New to SmartBike?</string>
+    <string name="register_dialog_message">Create New Account</string>
+    <string name="blank_un_pw">Enter Username and Password</string>
+    <string name="un_taken">Username Already Taken</string>
+    <string name="login_added">New User Created</string>
 </resources>

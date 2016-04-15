@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.gc.materialdesign.views.ButtonFloat;
 import com.gc.materialdesign.views.ButtonRectangle;
 
 import java.text.SimpleDateFormat;
@@ -50,18 +49,22 @@ public class RideHistoryActivity extends AppCompatActivity {
                 String curLoc = rideLocEditText.getText().toString();
                 String curDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 
-                //Random icon assigned
-                int rideType;
-                if ((int)(Math.random()*2) == 0) {
-                    rideType = R.drawable.mb;
-                } else {
-                    rideType = R.drawable.rb;
-                }
+                if (!curLoc.isEmpty()) {
+                    //Random icon assigned
+                    int rideType;
+                    if ((int) (Math.random() * 2) == 0) {
+                        rideType = R.drawable.mb;
+                    } else {
+                        rideType = R.drawable.rb;
+                    }
 
-                //Push new RideInfo object to list and notify adapter
-                rides.add(new RideInfo(curLoc, curDate, rideType));
-                adapter.notifyDataSetChanged();
-                Toast.makeText(RideHistoryActivity.this, R.string.ride_added_message, Toast.LENGTH_SHORT).show();
+                    //Push new RideInfo object to list and notify adapter
+                    rides.add(new RideInfo(curLoc, curDate, rideType));
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(RideHistoryActivity.this, R.string.ride_added_message, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RideHistoryActivity.this, R.string.add_ride_message, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

@@ -30,7 +30,7 @@ public class RideHistAdapter extends BaseAdapter {
     //Get current position
     @Override
     public Object getItem(int position) {
-        return position;
+        return rides.get(position);
     }
 
     @Override
