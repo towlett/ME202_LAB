@@ -14,10 +14,10 @@ public class RideHistAdapter extends BaseAdapter {
 
     // declare instance variables
     private Context context;
-    private ArrayList<RideHistoryActivity.RideInfo> rides;
+    private ArrayList<RideInfo> rides;
 
     //Constructor to set instance variables
-    public RideHistAdapter(Context contextIn, ArrayList<RideHistoryActivity.RideInfo> rideInfoIn){
+    public RideHistAdapter(Context contextIn, ArrayList<RideInfo> rideInfoIn){
         context = contextIn;
         rides = rideInfoIn;
     }
@@ -29,7 +29,7 @@ public class RideHistAdapter extends BaseAdapter {
 
     //Get current position
     @Override
-    public Object getItem(int position) {
+    public RideInfo getItem(int position) {
         return rides.get(position);
     }
 

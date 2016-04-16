@@ -1,3 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="673d77a5bbddd766037f088e775df525c46407f0">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.2.1_1b93a32d8e01b539cd365a1bd6bfe66bd3e17938\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\jars\libs\internal_impl-23.2.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="607a3d0b8013b4ccbfeb0b7cb293351994e021fb">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.2.1_19112cc4a0210b4844b098146810a35df3ec88b6\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.2.1\support-annotations-23.2.1.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="ccb693bc0774fcb637246f7360de25b4af7df318">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.2.1_f99fdad2b91096a6c4854ba1eb22cc2ae14de07e\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="3aa5a661d78d70f5abba0d7a57155bbab0e205a6">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_a6cbf4746145925b9f6e54698e219ea68facaa49\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\exploded-aar\com.github.navasmdc\MaterialDesign\1.5\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="12b228574de7977e56e41cbfb385b1463bbdb41a">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.navasmdc-MaterialDesign-1.5_1e65a00cb451b048d36134d0bac1d0e1a7bdf4b8\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="3469cb457f10f74c28cbc05f069b6c894f6cbdd0">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.2.1_44d5dccf755b353ef0c686fc4c4470156e48e509\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="3be474b1b21b31cf2fa93fe6bd641ae108d96452">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.2.1_dc51b7004b597d562993fd9b44d3904cd3220077\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\exploded-aar\de.hdodenhof\circleimageview\2.0.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="031e8b3ab2df4ab43b1017f84417d7e10dfbb8d2">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\de.hdodenhof-circleimageview-2.0.0_0113ad1be87cf75457df1e27ea9ab2c34f29be6f\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.2.1\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="e4d0cbb0b999604b349062f0214a0a228a7fd151">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.2.1_89057f04f90af2d50333fd6c1b8d30b69e060cf7\classes.dex" />
+    </item>
+    <item
+        jar="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8485b588d523579ded91375cdc703e83f2aa552b">
+        <dex dex="C:\Users\tomow_000\AndroidStudioProjects\SmartBike\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_39850fdd79188ad57dc72814d8539f8674edd2c9\classes.dex" />
+    </item>
+
+</items>

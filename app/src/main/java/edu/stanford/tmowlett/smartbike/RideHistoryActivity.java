@@ -1,8 +1,11 @@
 package edu.stanford.tmowlett.smartbike;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,7 +24,7 @@ public class RideHistoryActivity extends AppCompatActivity {
     EditText rideLocEditText;
 
     //Create Arraylist of rides
-    ArrayList<RideInfo> rides = new ArrayList<RideInfo>();
+    ArrayList<RideInfo> rides = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +36,9 @@ public class RideHistoryActivity extends AppCompatActivity {
         addRideButton = (ButtonRectangle)findViewById(R.id.add_ride_button);
         rideLocEditText = (EditText)findViewById(R.id.ride_edittext);
 
-        //Add some dummy rides
-        rides.add(new RideInfo("Stanford", "04/05/2016", R.drawable.rb));
-        rides.add(new RideInfo("Palo Alto", "04/06/2016", R.drawable.mb));
+        //OPEN DAT DB
+        final DatabaseHandler db = new DatabaseHandler(this);
+        rides = db.getAllRides();
 
         //Create ride history adapter and assign to listview
         final RideHistAdapter adapter = new RideHistAdapter(this, rides);
@@ -59,7 +62,8 @@ public class RideHistoryActivity extends AppCompatActivity {
                     }
 
                     //Push new RideInfo object to list and notify adapter
-                    rides.add(new RideInfo(curLoc, curDate, rideType));
+                    long newId = db.addRide(new RideInfo(0, curLoc, curDate, rideType));
+                    rides.add(new RideInfo(newId, curLoc, curDate, rideType));
                     adapter.notifyDataSetChanged();
                     Toast.makeText(RideHistoryActivity.this, R.string.ride_added_message, Toast.LENGTH_SHORT).show();
                 } else {
@@ -67,34 +71,33 @@ public class RideHistoryActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
-    // object to store units of ride information
-    public class RideInfo {
+        rideListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder deleteDialog = new AlertDialog.Builder(RideHistoryActivity.this);
+                deleteDialog.setTitle(R.string.confirm_delete);
 
-        //instance variables
-        private String rideLocation;
-        private String rideDate;
-        private int rideIcon;
+                deleteDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
 
-        //Constructor to set instance variables
-        public RideInfo(String location_in, String date_in, int icon_in){
-            rideLocation = location_in;
-            rideDate = date_in;
-            rideIcon = icon_in;
-        }
+                deleteDialog.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        db.deleteRide(rides.get(position));
+                        rides.remove(position);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
 
-        //Getter functions for each instance variable
-        public String getRideLocation(){
-            return rideLocation;
-        }
-
-        public String getRideDate(){
-            return rideDate;
-        }
-
-        public int getRideIcon(){
-            return rideIcon;
-        }
+                AlertDialog confirmDelete = deleteDialog.create();
+                confirmDelete.show();
+                return true;
+            }
+        });
     }
 }
