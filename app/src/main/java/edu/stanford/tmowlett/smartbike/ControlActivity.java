@@ -47,6 +47,12 @@ public class ControlActivity extends AppCompatActivity {
     public byte data[] = {0};
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        disconnect();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
@@ -64,7 +70,11 @@ public class ControlActivity extends AppCompatActivity {
         unlockButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUnlockDialog();
+                if (mGatt == null) {
+                    createUnlockDialog();
+                } else {
+                    disconnect();
+                }
             }
         });
 
@@ -77,8 +87,10 @@ public class ControlActivity extends AppCompatActivity {
                     data[0] &= ~1;
                 }
                 Log.i(TAG, "Mode Toggled");
-                tx.setValue(data);
-                mGatt.writeCharacteristic(tx);
+                if (tx != null) {
+                    tx.setValue(data);
+                    mGatt.writeCharacteristic(tx);
+                }
             }
         });
 
@@ -91,8 +103,10 @@ public class ControlActivity extends AppCompatActivity {
                     data[0] &= ~2;
                 }
                 Log.i(TAG, "Mode Toggled");
-                tx.setValue(data);
-                mGatt.writeCharacteristic(tx);
+                if (tx != null) {
+                    tx.setValue(data);
+                    mGatt.writeCharacteristic(tx);
+                }
             }
         });
 
@@ -164,6 +178,19 @@ public class ControlActivity extends AppCompatActivity {
             public void run() {
                 String displayText = getResources().getString(R.string.bike_id) + iDIn;
                 bikeIDTV.setText(displayText);
+            }
+        });
+    }
+
+    public void updateLockIcon() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (mGatt == null) {
+                    unlockButton.setImageResource(R.drawable.unlock);
+                } else {
+                    unlockButton.setImageResource(R.drawable.lock);
+                }
             }
         });
     }
@@ -242,6 +269,7 @@ public class ControlActivity extends AppCompatActivity {
 
             Log.i(TAG, "Seems to be set up correctly");
             setConnectionTV(getResources().getString(R.string.connection_state_connected));
+            updateLockIcon();
         }
 
         @Override
@@ -261,9 +289,10 @@ public class ControlActivity extends AppCompatActivity {
         if (mGatt != null) {
             mGatt.disconnect();
         }
-        setConnectionTV(getResources().getString(R.string.connection_state_disconnected));
         mGatt = null;
         tx = null;
         rx = null;
+        setConnectionTV(getResources().getString(R.string.connection_state_disconnected));
+        updateLockIcon();
     }
 }
