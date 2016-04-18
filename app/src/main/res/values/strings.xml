@@ -3,8 +3,10 @@
     <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="button_login">Login</string>
-    <string name="connection_state">Connection State:\nDisconnected</string>
-    <string name="bike_id">Bike ID:\n00:00:00:00:00:00</string>
+    <string name="connection_state_disconnected">Connection State:\nDisconnected</string>
+    <string name="connection_state_connecting">Connection State:\nConnecting</string>
+    <string name="connection_state_connected">Connection State:\nConnected</string>
+    <string name="bike_id">Bike ID:\n</string>
     <string name="light_state">Light State</string>
     <string name="light_mode">Light Mode</string>
     <string name="button_ride_history">Ride History</string>

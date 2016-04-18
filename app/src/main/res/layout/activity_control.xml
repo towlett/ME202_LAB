@@ -47,7 +47,7 @@
                 android:id="@+id/connection_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/connection_state"
+                android:text="@string/connection_state_disconnected"
                 android:gravity="center"
                 android:layout_weight="1" />
 
@@ -82,7 +82,7 @@
 
             <!-- Lightmode Toggle Button -->
             <ToggleButton
-                android:id="@+id/light_state_switch"
+                android:id="@+id/light_mode_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
                 android:layout_weight=".25"
@@ -112,7 +112,7 @@
 
             <!-- LightState toggle -->
             <ToggleButton
-                android:id="@+id/light_mode_switch"
+                android:id="@+id/light_state_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/light_mode"

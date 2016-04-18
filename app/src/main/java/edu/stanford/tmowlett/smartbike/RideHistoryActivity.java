@@ -15,6 +15,7 @@ import com.gc.materialdesign.views.ButtonRectangle;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class RideHistoryActivity extends AppCompatActivity {
 
@@ -50,7 +51,7 @@ public class RideHistoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Get the location from edittext and date from the system
                 String curLoc = rideLocEditText.getText().toString();
-                String curDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+                String curDate = new SimpleDateFormat("MM/dd/yyyy", Locale.US).format(new Date());
 
                 if (!curLoc.isEmpty()) {
                     //Random icon assigned

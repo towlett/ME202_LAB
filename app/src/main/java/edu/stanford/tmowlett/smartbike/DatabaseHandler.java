@@ -8,9 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-/**
- * Created by tomow_000 on 4/15/2016.
- */
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
@@ -59,7 +56,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_RIDES, new String[] { KEY_ID, KEY_LOC, KEY_DATE, KEY_ICON_ID}, KEY_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
-        if (cursor != null) cursor.moveToFirst();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            cursor.close();
+        }
 
         return new RideInfo(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
     }
