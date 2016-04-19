@@ -42,8 +42,8 @@ public class RideHistoryActivity extends AppCompatActivity {
         rides = db.getAllRides();
 
         //Create ride history adapter and assign to listview
-        final RideHistAdapter adapter = new RideHistAdapter(this, rides);
-        rideListView.setAdapter(adapter);
+        final RideHistAdapter rHadapter = new RideHistAdapter(this, rides);
+        rideListView.setAdapter(rHadapter);
 
         //Create click listener and handle click
         addRideButton.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +65,7 @@ public class RideHistoryActivity extends AppCompatActivity {
                     //Push new RideInfo object to list and notify adapter
                     long newId = db.addRide(new RideInfo(0, curLoc, curDate, rideType));
                     rides.add(new RideInfo(newId, curLoc, curDate, rideType));
-                    adapter.notifyDataSetChanged();
+                    rHadapter.notifyDataSetChanged();
                     Toast.makeText(RideHistoryActivity.this, R.string.ride_added_message, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(RideHistoryActivity.this, R.string.add_ride_message, Toast.LENGTH_SHORT).show();
@@ -91,7 +91,7 @@ public class RideHistoryActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         db.deleteRide(rides.get(position));
                         rides.remove(position);
-                        adapter.notifyDataSetChanged();
+                        rHadapter.notifyDataSetChanged();
                     }
                 });
 
