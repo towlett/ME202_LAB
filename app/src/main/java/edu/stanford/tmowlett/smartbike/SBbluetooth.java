@@ -23,7 +23,7 @@ public class SBbluetooth {
     public BluetoothGatt mGatt;
     BluetoothGattCharacteristic tx;
     BluetoothGattCharacteristic rx;
-    public byte data[] = {0};
+    public byte txData[] = {0};
     public Context context;
 
     // Constructor
@@ -38,6 +38,7 @@ public class SBbluetooth {
         bTAdapter.startLeScan(mScanCallback);
     }
 
+    // LE Scan Callback
     private BluetoothAdapter.LeScanCallback mScanCallback = new BluetoothAdapter.LeScanCallback() {
         @Override
         public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
@@ -49,13 +50,16 @@ public class SBbluetooth {
         }
     };
 
+    // Gatt Callback
     private BluetoothGattCallback mgGattCallback = new BluetoothGattCallback() {
         @Override
+        // Changed connection state
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
             super.onConnectionStateChange(gatt, status, newState);
             if (newState == BluetoothGatt.STATE_CONNECTED) {
                 Log.i(TAG, "Profile Connected");
                 if (status == BluetoothGatt.GATT_SUCCESS) {
+                    // If successfully connected go to discover services
                     if (!gatt.discoverServices()) {
                         Log.i(TAG, "Discover Services failed");
                     }
@@ -65,11 +69,13 @@ public class SBbluetooth {
                     Log.i(TAG, "GATT unsuccessful!");
                 }
             } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                // Make sure it is really disconnected
                 disconnect();
                 Log.i(TAG, "Currently Disconnected");
             }
         }
 
+        // On services discovered function
         @Override
         public void onServicesDiscovered(BluetoothGatt gatt, int status) {
             super.onServicesDiscovered(gatt, status);
@@ -77,15 +83,11 @@ public class SBbluetooth {
                 Log.i(TAG, "Bluetooth Gatt failure");
                 return;
             }
+            // Get tx and rx characteristics
             tx = gatt.getService(UART_UUID).getCharacteristic(TX_UUID);
             rx = gatt.getService(UART_UUID).getCharacteristic(RX_UUID);
 
-            /* CODE to get device descriptor
-            for (BluetoothGattDescriptor descriptor:tx.getDescriptors()){
-                Log.i(TAG, "BluetoothGattDescriptor: "+descriptor.getUuid().toString());
-            }
-            */
-
+            //Set up characteristic notifications for rx
             if (!gatt.setCharacteristicNotification(rx, true)) {
                 Log.i(TAG, "Unable to set rx characteristic notification");
                 return;
@@ -98,6 +100,7 @@ public class SBbluetooth {
                 return;
             }
 
+            //Set descriptor value
             desc.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
 
             if (!gatt.writeDescriptor(desc)) {
@@ -107,6 +110,11 @@ public class SBbluetooth {
 
             Log.i(TAG, "Seems to be set up correctly");
 
+            // Write current tx
+            tx.setValue(txData);
+            mGatt.writeCharacteristic(tx);
+
+            // Update UI
             ((ControlActivity)context).setConnectionTV(context.getResources().getString(R.string.connection_state_connected));
             ((ControlActivity)context).updateLockIcon();
         }
@@ -124,24 +132,28 @@ public class SBbluetooth {
         }
     };
 
+    // Method to check if the BT is fully connected
     public boolean isConnected() {
         return (mGatt != null && tx != null);
     }
 
+    // Method to update a certain bit in TX and send if connected
     public void updateTxBit(int pos, boolean value){
         if (value) {
-            data[0] |= (1 << pos);
+            txData[0] |= (1 << pos);
         } else {
-            data[0] &= ~(1 << pos);
+            txData[0] &= ~(1 << pos);
         }
 
         if (isConnected()) {
-            tx.setValue(data);
+            tx.setValue(txData);
             mGatt.writeCharacteristic(tx);
         }
     }
 
+    // Disconnect method
     public void disconnect() {
+        //Disconnect
         if (mGatt != null) {
             mGatt.disconnect();
             mGatt.close();
@@ -151,7 +163,9 @@ public class SBbluetooth {
         tx = null;
         rx = null;
 
+        // Update UI
         ((ControlActivity) context).setConnectionTV(context.getResources().getString(R.string.connection_state_disconnected));
         ((ControlActivity) context).updateLockIcon();
+        ((ControlActivity) context).setBikeIDTV("");
     }
 }

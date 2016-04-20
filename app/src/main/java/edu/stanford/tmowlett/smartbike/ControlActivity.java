@@ -46,6 +46,7 @@ public class ControlActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
+
         btController = new SBbluetooth(ControlActivity.this);
 
         //Create unlock button object
@@ -63,6 +64,7 @@ public class ControlActivity extends AppCompatActivity {
                 if (!btController.isConnected()) {
                     createUnlockDialog();
                 } else {
+                    // In next iteration create dialog to confirm disconnect here
                     btController.disconnect();
                 }
             }
@@ -129,8 +131,10 @@ public class ControlActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //Check if there is text in the box
                 if (!(inputMAC.getText().toString().equals(""))) {
+                    // Connect the bluetooth
                     btController.connectBT(inputMAC.getText().toString());
                     //Toast.makeText(ControlActivity.this, inputMAC.getText(), Toast.LENGTH_SHORT).show();
+                    // Set bike ID
                     String newMac = getResources().getString(R.string.bike_id) + inputMAC.getText().toString();
                     bikeIDTV.setText(newMac);
                 } else {
@@ -152,6 +156,7 @@ public class ControlActivity extends AppCompatActivity {
         //BT code here:
     }
 
+    // Public function to update Connection text view
     public void setConnectionTV(final String ConnectionStateIn) {
         runOnUiThread(new Runnable() {
             @Override
@@ -161,6 +166,7 @@ public class ControlActivity extends AppCompatActivity {
         });
     }
 
+    // Public function to set bike ID text view
     public void setBikeIDTV(final String iDIn) {
         runOnUiThread(new Runnable() {
             @Override
@@ -171,6 +177,7 @@ public class ControlActivity extends AppCompatActivity {
         });
     }
 
+    // Public function to update the lock icon
     public void updateLockIcon() {
         runOnUiThread(new Runnable() {
             @Override

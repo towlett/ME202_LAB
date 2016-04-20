@@ -37,7 +37,7 @@ public class RideHistoryActivity extends AppCompatActivity {
         addRideButton = (ButtonRectangle)findViewById(R.id.add_ride_button);
         rideLocEditText = (EditText)findViewById(R.id.ride_edittext);
 
-        //OPEN DAT DB
+        //OPEN DAT DB and get the stored rides
         final DatabaseHandler db = new DatabaseHandler(this);
         rides = db.getAllRides();
 
@@ -57,13 +57,14 @@ public class RideHistoryActivity extends AppCompatActivity {
                     //Random icon assigned
                     int rideType;
                     if ((int) (Math.random() * 2) == 0) {
-                        rideType = R.drawable.mb;
+                        rideType = 0;
                     } else {
-                        rideType = R.drawable.rb;
+                        rideType = 1;
                     }
 
-                    //Push new RideInfo object to list and notify adapter
+                    // Add new ride to db and get the id
                     long newId = db.addRide(new RideInfo(0, curLoc, curDate, rideType));
+                    //Push new RideInfo object to list and notify adapter
                     rides.add(new RideInfo(newId, curLoc, curDate, rideType));
                     rHadapter.notifyDataSetChanged();
                     Toast.makeText(RideHistoryActivity.this, R.string.ride_added_message, Toast.LENGTH_SHORT).show();
@@ -73,6 +74,7 @@ public class RideHistoryActivity extends AppCompatActivity {
             }
         });
 
+        // Workflow for deleting ride
         rideListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -86,6 +88,7 @@ public class RideHistoryActivity extends AppCompatActivity {
                     }
                 });
 
+                // If okay is pressed actually delete the ride from DB and listview
                 deleteDialog.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -29,8 +29,13 @@ public class RideInfo {
         return rideDate;
     }
 
+    // Function to take ride icon int from DB and return the appropriate drawable
     public int getRideIcon(){
-        return rideIcon;
+        if (rideIcon == 0) {
+            return R.drawable.mb;
+        } else {
+            return R.drawable.rb;
+        }
     }
 
     public long getRideId() {
