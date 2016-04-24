@@ -29,4 +29,7 @@
     <string name="un_taken">Username Already Taken</string>
     <string name="login_added">New User Created</string>
     <string name="confirm_delete">Delete Ride?</string>
+    <string name="movement">Movement</string>
+    <string name="not_moving">Not Moving</string>
+    <string name="moving">Moving</string>
 </resources>

@@ -40,6 +40,7 @@ public class ControlActivity extends AppCompatActivity {
     ToggleButton stateToggle;
     TextView connectionTV;
     TextView bikeIDTV;
+    TextView movementTV;
     SBbluetooth btController;
 
     @Override
@@ -56,6 +57,7 @@ public class ControlActivity extends AppCompatActivity {
         stateToggle = (ToggleButton)findViewById(R.id.light_state_switch);
         connectionTV = (TextView)findViewById(R.id.connection_state);
         bikeIDTV = (TextView)findViewById(R.id.bike_id);
+        movementTV = (TextView)findViewById(R.id.movement_tv);
 
         // Set up on click listener for unlock button
         unlockButton.setOnClickListener(new View.OnClickListener() {
@@ -105,8 +107,8 @@ public class ControlActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         btController.disconnect();
     }
 
@@ -186,6 +188,19 @@ public class ControlActivity extends AppCompatActivity {
                     unlockButton.setImageResource(R.drawable.unlock);
                 } else {
                     unlockButton.setImageResource(R.drawable.lock);
+                }
+            }
+        });
+    }
+
+    public void setMovementTV(final boolean isMoving) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (isMoving) {
+                    movementTV.setText(R.string.moving);
+                } else {
+                    movementTV.setText(R.string.not_moving);
                 }
             }
         });

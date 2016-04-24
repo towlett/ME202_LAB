@@ -122,7 +122,14 @@ public class SBbluetooth {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             super.onCharacteristicChanged(gatt, characteristic);
-            Log.i(TAG, "RX value" + characteristic.getStringValue(0));
+            Log.i(TAG, "RX value " + characteristic.getValue()[0]);
+            if (characteristic.equals(rx)) {
+                if (characteristic.getValue()[0] == 49) {
+                    ((ControlActivity)context).setMovementTV(true);
+                } else {
+                    ((ControlActivity)context).setMovementTV(false);
+                }
+            }
         }
 
         @Override
@@ -155,7 +162,6 @@ public class SBbluetooth {
     public void disconnect() {
         //Disconnect
         if (mGatt != null) {
-            mGatt.disconnect();
             mGatt.close();
         }
 
