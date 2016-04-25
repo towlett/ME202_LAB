@@ -61,7 +61,7 @@ public class RideHistAdapter extends BaseAdapter {
         ViewHolder h = (ViewHolder)row.getTag();
         h.rideloc.setText(rides.get(pos).getRideLocation());
         h.ridedate.setText(rides.get(pos).getRideDate());
-        h.rideicon.setImageResource(rides.get(pos).getRideIcon());
+        h.rideicon.setImageResource(rides.get(pos).obtainRideDrawable());
         return row;
     }
 

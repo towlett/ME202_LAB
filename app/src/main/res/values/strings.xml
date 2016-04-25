@@ -28,6 +28,7 @@
     <string name="blank_un_pw">Enter Username and Password</string>
     <string name="un_taken">Username Already Taken</string>
     <string name="login_added">New User Created</string>
+    <string name="login_not_added">Unable to create user</string>
     <string name="confirm_delete">Delete Ride?</string>
     <string name="movement">Movement</string>
     <string name="not_moving">Not Moving</string>

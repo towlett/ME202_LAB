@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.firebase.client.AuthData;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,12 +25,14 @@ public class LoginActivity extends AppCompatActivity {
     Button registerButton;
     EditText userNameEditText;
     EditText passwordEditText;
+    Firebase ref;
     private Map<String,String> LoginCreds=new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ref = new Firebase("https://popping-inferno-9349.firebaseio.com/");
 
         //Create login button Object
         loginButton = (Button) findViewById(R.id.login_button);
@@ -44,16 +50,20 @@ public class LoginActivity extends AppCompatActivity {
                 String userNameIn = userNameEditText.getText().toString();
                 String passwordIn = passwordEditText.getText().toString();
 
-                // Compare inputted username and password to actual
-                if (LoginCreds.containsKey(userNameIn) && passwordIn.equals(LoginCreds.get(userNameIn))) {
-                    // Move to control activity
-                    Intent goToControl = new Intent(LoginActivity.this, ControlActivity.class);
-                    startActivity(goToControl);
-                    finish();
-                } else {
-                    // Authentication failed
-                    Toast.makeText(LoginActivity.this, R.string.authentication_failed, Toast.LENGTH_SHORT).show();
-                }
+                ref.authWithPassword(userNameIn, passwordIn, new Firebase.AuthResultHandler() {
+                    @Override
+                    public void onAuthenticated(AuthData authData) {
+                        ((SBSuper)getApplication()).setUID(authData.getUid());
+                        Intent goToControl = new Intent(LoginActivity.this, ControlActivity.class);
+                        startActivity(goToControl);
+                        finish();
+                    }
+
+                    @Override
+                    public void onAuthenticationError(FirebaseError firebaseError) {
+                        Toast.makeText(LoginActivity.this, firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -87,13 +97,18 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 //Check if there is text in the box
                 if (!(newUsername.getText().toString().equals("")||(newPassword.getText().toString().equals("")))) {
-                    //Do Unlock Here
-                    if (LoginCreds.containsKey(newUsername.getText().toString())) {
-                        Toast.makeText(LoginActivity.this, R.string.un_taken, Toast.LENGTH_SHORT).show();
-                    } else {
-                        LoginCreds.put(newUsername.getText().toString(), newPassword.getText().toString());
-                        Toast.makeText(LoginActivity.this, R.string.login_added, Toast.LENGTH_SHORT).show();
-                    }
+                    //Do Register Here
+                    ref.createUser(newUsername.getText().toString(), newPassword.getText().toString(), new Firebase.ResultHandler() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(LoginActivity.this, R.string.login_added, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onError(FirebaseError firebaseError) {
+                            Toast.makeText(LoginActivity.this, firebaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                 } else {
                     Toast.makeText(LoginActivity.this, R.string.blank_un_pw, Toast.LENGTH_SHORT).show();

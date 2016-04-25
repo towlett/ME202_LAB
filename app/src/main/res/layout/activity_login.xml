@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:inputType="textVisiblePassword"
+        android:inputType="textEmailAddress"
         android:layout_below="@id/appname"
         android:hint="@string/username_hint"/>
 

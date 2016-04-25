@@ -26,7 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Creates the database
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_RIDES_TABLE = "CREATE TABLE " + TABLE_RIDES + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_LOC + " TEXT," + KEY_DATE + " TEXT," + KEY_ICON_ID + " INTEGER" + ")";
+        String CREATE_RIDES_TABLE = "CREATE TABLE " + TABLE_RIDES + "(" + KEY_ID + " TEXT," + KEY_LOC + " TEXT," + KEY_DATE + " TEXT," + KEY_ICON_ID + " INTEGER" + ")";
         db.execSQL(CREATE_RIDES_TABLE);
     }
 
@@ -34,7 +34,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RIDES);
+        onCreate(db);
+    }
 
+    public void clearRideTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RIDES);
         onCreate(db);
     }
 
@@ -45,6 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, rideInfo.getRideId());
         values.put(KEY_LOC, rideInfo.getRideLocation());
         values.put(KEY_DATE, rideInfo.getRideDate());
         values.put(KEY_ICON_ID, rideInfo.getRideIcon());
@@ -66,7 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         db.close();
-        return new RideInfo(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
+        return new RideInfo(cursor.getString(0), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
     }
 
     // Function to return all rides
@@ -79,7 +85,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                RideInfo rideInfo = new RideInfo(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
+                RideInfo rideInfo = new RideInfo(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
                 rideList.add(rideInfo);
             } while (cursor.moveToNext());
         }
@@ -102,7 +108,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Delete a ride from the DB
     public void deleteRide(RideInfo rideInfo) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_RIDES, KEY_ID + " = ?", new String[] { String.valueOf(rideInfo.getRideId())});
+        db.delete(TABLE_RIDES, KEY_ID + " = ?", new String[] { rideInfo.getRideId()});
         db.close();
     }
 }

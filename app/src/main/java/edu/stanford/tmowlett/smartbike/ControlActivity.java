@@ -49,6 +49,7 @@ public class ControlActivity extends AppCompatActivity {
         setContentView(R.layout.activity_control);
 
         btController = new SBbluetooth(ControlActivity.this);
+        Log.i(TAG, ((SBSuper)getApplication()).getUID());
 
         //Create unlock button object
         unlockButton = (ImageButton)findViewById(R.id.unlock_button);

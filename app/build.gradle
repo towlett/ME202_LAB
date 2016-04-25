@@ -18,6 +18,11 @@ android {
     }
     productFlavors {
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 repositories {
@@ -30,4 +35,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
+    compile 'com.firebase:firebase-client-android:2.5.2+'
 }
