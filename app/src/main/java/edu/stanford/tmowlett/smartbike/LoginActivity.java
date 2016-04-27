@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,9 +86,13 @@ public class LoginActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(40, 0, 40, 0);
 
+        // Set up new edit texts
         final EditText newUsername = new EditText(this);
         final EditText newPassword = new EditText(this);
-        newPassword.setInputType(129);
+        newUsername.setHint(R.string.username_hint);
+        newPassword.setHint(R.string.password_hint);
+        newUsername.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        newPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         dialogLayout.addView(newUsername, params);
         dialogLayout.addView(newPassword, params);
         registerBuilder.setView(dialogLayout);

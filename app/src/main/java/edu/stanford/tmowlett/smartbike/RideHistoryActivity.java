@@ -26,10 +26,10 @@ import java.util.Locale;
 public class RideHistoryActivity extends AppCompatActivity {
 
     //Declare instance variables
+    private final String TAG = ControlActivity.class.getSimpleName();
     ListView rideListView;
     ButtonRectangle addRideButton;
     EditText rideLocEditText;
-    private final String TAG = ControlActivity.class.getSimpleName();
     Firebase ref;
     String UID;
 
@@ -40,6 +40,8 @@ public class RideHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_history);
+
+        // set up firebase
         ref = new Firebase("https://popping-inferno-9349.firebaseio.com/");
         UID = ((SBSuper)getApplication()).getUID();
 
@@ -48,25 +50,32 @@ public class RideHistoryActivity extends AppCompatActivity {
         addRideButton = (ButtonRectangle)findViewById(R.id.add_ride_button);
         rideLocEditText = (EditText)findViewById(R.id.ride_edittext);
 
-        //OPEN DAT DB and get the stored rides
+        //Create db instance and get the stored rides
         final DatabaseHandler db = new DatabaseHandler(this);
 
+
         if (UID.equals(((SBSuper)getApplication()).getUIDinSQLite())) {
+            // If the UID matches the UID of the user already in SQLite use SQLite
             rides = db.getAllRides();
             Log.i(TAG, "Using SQLite data");
         } else {
+            // Otherwise use firebase data
             Log.i(TAG, "Using firebase data");
             db.clearRideTable();
+
             // GET Current firebase db
             Firebase rideRetRef = ref.child("rides").child(UID);
             rideRetRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Log.i(TAG, "There are " + dataSnapshot.getChildrenCount() + " rides");
+                    // if transfer was successful update SQLite Uid
                     ((SBSuper) getApplication()).setUIDinSQLite(UID);
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        // Rebuild each ride object
                         RideInfo retrievedRide = postSnapshot.getValue(RideInfo.class);
                         retrievedRide.setRideId(postSnapshot.getKey());
+                        // Add to db and ride array list
                         db.addRide(retrievedRide);
                         rides.add(retrievedRide);
                         Log.i(TAG, "ID: " + retrievedRide.getRideId());
@@ -101,10 +110,9 @@ public class RideHistoryActivity extends AppCompatActivity {
                         rideType = 1;
                     }
 
-                    // Add new ride to db and get the id
-                    //long newId = db.addRide(new RideInfo(0, curLoc, curDate, rideType));
-
+                    // Create a new ride with new info
                     RideInfo newRide = new RideInfo(curLoc, curDate, rideType);
+                    // Add it to firebase
                     Firebase ridePostRef = ref.child("rides").child(UID).push();
                     ridePostRef.setValue(newRide);
                     String postId = ridePostRef.getKey();
@@ -142,6 +150,7 @@ public class RideHistoryActivity extends AppCompatActivity {
                 deleteDialog.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // delete from sqlite
                         db.deleteRide(rides.get(position));
                         // delete from firebase
                         ref.child("rides").child(UID).child(rides.get(position).getRideId()).removeValue();

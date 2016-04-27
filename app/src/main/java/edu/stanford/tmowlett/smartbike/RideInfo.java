@@ -19,7 +19,7 @@ public class RideInfo {
         rideIcon = icon_in;
     }
 
-    //Constructor without id
+    //Constructor without id - can be added later
     public RideInfo(String location_in, String date_in, long icon_in) {
         rideLocation = location_in;
         rideDate = date_in;
@@ -35,7 +35,6 @@ public class RideInfo {
         return rideDate;
     }
 
-    // Function to take ride icon int from DB and return the appropriate drawable
     public long getRideIcon(){
         return rideIcon;
     }
@@ -48,6 +47,7 @@ public class RideInfo {
         rideId = rideIdin;
     }
 
+    // Method to take ride icon int from DB and return the appropriate drawable
     public int obtainRideDrawable(){
         if (rideIcon == 0) {
             return R.drawable.mb;
